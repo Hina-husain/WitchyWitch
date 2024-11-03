@@ -12,7 +12,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
-public class FlappyBird extends JPanel implements ActionListener, KeyListener {
+public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
     int boardWidth = 360;
     int boardHeight = 640;
 
@@ -76,7 +76,7 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
 
     Clip jumpSound; // Sound effect for jumping
 
-    FlappyBird(JFrame frame) {
+    WitchyWitch(JFrame frame) {
         this.gameFrame = frame;
         setPreferredSize(new Dimension(boardWidth, boardHeight));
         // setBackground(Color.blue);
