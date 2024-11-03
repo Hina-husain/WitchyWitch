@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+ 
 public class SplashScreen {
     private JFrame splashFrame;
     private JButton startButton;
@@ -10,7 +10,7 @@ public class SplashScreen {
 
     public SplashScreen() {
         // Load background image
-        backgroundImg = new ImageIcon(getClass().getResource("./flappybirdbg.png")).getImage();
+        backgroundImg = new ImageIcon(getClass().getResource("./bg.png")).getImage();
         
         // Create the splash screen JFrame
         splashFrame = new JFrame("Flappy Bird - Splash Screen");
