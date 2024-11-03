@@ -35,8 +35,14 @@ public class GameOverScreen {
         scoreLabel.setForeground(Color.BLACK);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Label for name input field
+        JLabel nameLabel = new JLabel("Enter Your Name:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        nameLabel.setForeground(Color.BLACK);
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         // Player name input
-        JTextField nameInput = new JTextField("Enter Your Name", 15);
+        JTextField nameInput = new JTextField(15);
         nameInput.setMaximumSize(new Dimension(200, 30));
         nameInput.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -50,9 +56,25 @@ public class GameOverScreen {
                 String playerName = nameInput.getText().trim();
                 if (!playerName.isEmpty()) {
                     scoreManager.addScore(new Score(playerName, (int) score)); // Save the score
-                    new ScoreboardScreen();  // Opens the scoreboard screen
-                    gameOverFrame.dispose(); // Close the Game Over screen
                 }
+                new ScoreboardScreen();  // Opens the scoreboard screen
+                gameOverFrame.dispose(); // Close the Game Over screen
+            }
+        });
+
+        // Retry button
+        JButton retryButton = new JButton("Retry");
+        retryButton.setFont(new Font("Arial", Font.PLAIN, 24));
+        retryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        retryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String playerName = nameInput.getText().trim();
+                if (!playerName.isEmpty()) {
+                    scoreManager.addScore(new Score(playerName, (int) score)); // Save score with name
+                }
+                gameOverFrame.dispose(); // Close Game Over screen
+                SwingUtilities.invokeLater(() -> new App()); // Restart the game
             }
         });
 
@@ -62,9 +84,12 @@ public class GameOverScreen {
         backgroundPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         backgroundPanel.add(scoreLabel);
         backgroundPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        backgroundPanel.add(nameInput);
+        backgroundPanel.add(nameLabel); // Name label
+        backgroundPanel.add(nameInput); // Name input field
         backgroundPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         backgroundPanel.add(scoreboardButton);
+        backgroundPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        backgroundPanel.add(retryButton);
         backgroundPanel.add(Box.createVerticalGlue());
 
         // Add background panel to the frame
@@ -81,3 +106,4 @@ public class GameOverScreen {
         }
     }
 }
+  
