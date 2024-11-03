@@ -10,7 +10,7 @@ public class GameOverScreen {
 
     public GameOverScreen(double score) {
         // Load background image
-        backgroundImg = new ImageIcon(getClass().getResource("./flappybirdbg.png")).getImage();
+        backgroundImg = new ImageIcon(getClass().getResource("./images/background.jpg  ")).getImage();
         scoreManager = new ScoreManager();
 
         // Create Game Over screen JFrame

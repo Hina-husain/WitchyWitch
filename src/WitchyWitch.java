@@ -1,10 +1,18 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
-public class FlappyBird extends JPanel implements ActionListener, KeyListener {
+public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
     int boardWidth = 360;
     int boardHeight = 640;
 
@@ -14,19 +22,19 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     Image topPipeImg;
     Image bottomPipeImg;
     JFrame gameFrame; 
- 
+
     //bird class
     int birdX = boardWidth/8;
     int birdY = boardWidth/2;
-    int birdWidth = 90;
-    int birdHeight = 90;
+    int witchwidth = 65; 
+    int witchHeight = 70 ;
 
     class Bird {
         int x = birdX;
         int y = birdY;
-        int width = birdWidth;
-        int height = birdHeight;
-        Image img;
+        int width = witchwidth;  
+        int height = witchHeight;
+        Image img; 
 
         Bird(Image img) {
             this.img = img;
@@ -36,8 +44,8 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     //pipe class
     int pipeX = boardWidth;
     int pipeY = 0;
-    int pipeWidth = 64;  //scaled by 1/6
-    int pipeHeight = 512;
+    int pipeWidth = 60 ;  //scaled by 1/6
+    int pipeHeight = 450;
     
     class Pipe {
         int x = pipeX;
@@ -66,7 +74,9 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     boolean gameOver = false;
     double score = 0;
 
-    FlappyBird(JFrame frame) {
+    Clip jumpSound; // Sound effect for jumping
+
+    WitchyWitch(JFrame frame) {
         this.gameFrame = frame;
         setPreferredSize(new Dimension(boardWidth, boardHeight));
         // setBackground(Color.blue);
@@ -74,14 +84,17 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         addKeyListener(this);
 
         //load images
-        backgroundImg = new ImageIcon(getClass().getResource("./bg.png")).getImage();
-        birdImg = new ImageIcon(getClass().getResource("./witchc.png  ")).getImage();
-        topPipeImg = new ImageIcon(getClass().getResource("./toppipe.png")).getImage();
-        bottomPipeImg = new ImageIcon(getClass().getResource("./bottompipe.png")).getImage();
+        backgroundImg = new ImageIcon(getClass().getResource("./images/background.jpg")).getImage();
+        birdImg = new ImageIcon(getClass().getResource("./images/witch.png ")).getImage();
+        topPipeImg = new ImageIcon(getClass().getResource("./images/pipedown.png")).getImage();
+        bottomPipeImg = new ImageIcon(getClass().getResource("./images/pipeup.png")).getImage();
 
         //bird
         bird = new Bird(birdImg);
         pipes = new ArrayList<Pipe>();
+
+        // Load jump sound
+        loadJumpSound();
 
         //place pipes timer
         placePipeTimer = new Timer(1500, new ActionListener() {
@@ -98,6 +111,28 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
 		gameLoop = new Timer(1000/60, this); //how long it takes to start timer, milliseconds gone between frames 
         gameLoop.start();
 	}
+
+    void loadJumpSound() {
+        try {
+            // Load the sound file
+            File soundFile = new File(getClass().getResource("./sounds/jump.wav").getFile());
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            jumpSound = AudioSystem.getClip();
+            jumpSound.open(audioStream);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void playJumpSound() {
+        if (jumpSound != null) {
+            if (jumpSound.isRunning()) {
+                jumpSound.stop();
+            }
+            jumpSound.setFramePosition(0); // Rewind to the beginning
+            jumpSound.start();
+        }
+    }
     
     void placePipes() {
         //(0-1) * pipeHeight/2.
@@ -224,6 +259,7 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             // System.out.println("JUMP!");
             velocityY = -9;
+            playJumpSound();    
 
             if (gameOver) {
                 //restart game by resetting conditions
