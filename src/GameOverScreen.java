@@ -38,7 +38,7 @@ import java.io.IOException;
         // Score message
         JLabel scoreLabel = new JLabel("Your Score is: " + (int) score, SwingConstants.CENTER);
         scoreLabel.setFont(new Font("Algerian", Font.PLAIN, 28));
-        scoreLabel.setForeground(Color.BLACK);
+        scoreLabel.setForeground(Color.WHITE);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Label for name input field

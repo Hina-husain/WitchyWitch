@@ -46,7 +46,7 @@ public class ScoreboardScreen {
 
     private void createScoreboard() {
         scoreboardFrame = new JFrame("Scoreboard");
-        scoreboardFrame.setSize(400, 600);
+        scoreboardFrame.setSize(360, 640);
         scoreboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         scoreboardFrame.setLocationRelativeTo(null);
 
