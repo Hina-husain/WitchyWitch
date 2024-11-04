@@ -1,24 +1,17 @@
-import java.io.Serializable;
-
-public class Score implements Serializable, Comparable<Score> {
+public class Score {
     private String playerName;
-    private int playerScore;
+    private int score;
 
-    public Score(String name, int score) {
-        this.playerName = name;
-        this.playerScore = score;
+    public Score(String playerName, int score) {
+        this.playerName = playerName;
+        this.score = score;
     }
 
     public String getPlayerName() {
         return playerName;
     }
 
-    public int getPlayerScore() {
-        return playerScore;
-    }
-
-    @Override
-    public int compareTo(Score other) {
-        return Integer.compare(other.playerScore, this.playerScore); // Descending order
+    public int getScore() {
+        return score;
     }
 }
