@@ -18,25 +18,25 @@ public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
 
     //images
     Image backgroundImg;
-    Image birdImg;
+    Image witchImg;
     Image topPipeImg;
     Image bottomPipeImg;
     JFrame gameFrame; 
 
-    //bird class
-    int birdX = boardWidth/8;
-    int birdY = boardWidth/2;
+    //witch class
+    int witchX = boardWidth/8;
+    int witchY = boardWidth/2;
     int witchwidth = 65; 
     int witchHeight = 70 ;
 
-    class Bird {
-        int x = birdX;
-        int y = birdY;
+    class Witch {
+        int x = witchX;
+        int y = witchY;
         int width = witchwidth;  
         int height = witchHeight;
         Image img; 
 
-        Bird(Image img) {
+        Witch(Image img) {
             this.img = img;
         }
     }
@@ -61,9 +61,9 @@ public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
     }
 
     //game logic
-    Bird bird;
-    int velocityX = -4; //move pipes to the left speed (simulates bird moving right)
-    int velocityY = 0; //move bird up/down speed.
+    Witch witch;
+    int velocityX = -4; //move pipes to the left speed (simulates witch moving right)
+    int velocityY = 0; //move witch up/down speed.
     int gravity = 1;
 
     ArrayList<Pipe> pipes;
@@ -76,25 +76,29 @@ public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
 
     Clip jumpSound; // Sound effect for jumping
 
+    Clip collisionSound; // Sound effect for collision (fall or touching a pipe)
+
     WitchyWitch(JFrame frame) {
         this.gameFrame = frame;
         setPreferredSize(new Dimension(boardWidth, boardHeight));
+
         // setBackground(Color.blue);
         setFocusable(true);
         addKeyListener(this);
 
         //load images
         backgroundImg = new ImageIcon(getClass().getResource("./images/background.jpg")).getImage();
-        birdImg = new ImageIcon(getClass().getResource("./images/witch.png ")).getImage();
+        witchImg = new ImageIcon(getClass().getResource("./images/witch.png ")).getImage();
         topPipeImg = new ImageIcon(getClass().getResource("./images/pipedown.png")).getImage();
         bottomPipeImg = new ImageIcon(getClass().getResource("./images/pipeup.png")).getImage();
 
-        //bird
-        bird = new Bird(birdImg);
+        //witch
+        witch = new Witch(witchImg);
         pipes = new ArrayList<Pipe>();
 
-        // Load jump sound
+        // Load sounds
         loadJumpSound();
+        loadCollisionSound();
 
         //place pipes timer
         placePipeTimer = new Timer(1500, new ActionListener() {
@@ -112,6 +116,7 @@ public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
         gameLoop.start();
 	}
 
+    // On Click Sound Effects
     void loadJumpSound() {
         try {
             // Load the sound file
@@ -134,6 +139,7 @@ public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
         }
     }
     
+    // Pipes Position
     void placePipes() {
         //(0-1) * pipeHeight/2.
         // 0 -> -128 (pipeHeight/4)
@@ -156,12 +162,13 @@ public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
 		draw(g);
 	}
 
+    // Add elements to the Frame
 	public void draw(Graphics g) {
         // Background
         g.drawImage(backgroundImg, 0, 0, this.boardWidth, this.boardHeight, null);
     
-        // Bird
-        g.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height, null);
+        // Witch
+        g.drawImage(witchImg, witch.x, witch.y, witch.width, witch.height, null);
     
         // Pipes
         for (int i = 0; i < pipes.size(); i++) {
@@ -207,38 +214,65 @@ public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
         }
     }
 
+    // Movement of the Witch
     public void move() {
-        //bird
+        //witch
         velocityY += gravity;
-        bird.y += velocityY;
-        bird.y = Math.max(bird.y, 0); //apply gravity to current bird.y, limit the bird.y to top of the canvas
+        witch.y += velocityY;
+        witch.y = Math.max(witch.y, 0); //apply gravity to current witch.y, limit the witch.y to top of the canvas
 
         //pipes
         for (int i = 0; i < pipes.size(); i++) {
             Pipe pipe = pipes.get(i);
             pipe.x += velocityX;
 
-            if (!pipe.passed && bird.x > pipe.x + pipe.width) {
+            if (!pipe.passed && witch.x > pipe.x + pipe.width) {
                 score += 0.5; //0.5 because there are 2 pipes! so 0.5*2 = 1, 1 for each set of pipes
                 pipe.passed = true;
             }
 
-            if (collision(bird, pipe)) {
+            if (collision(witch, pipe)) {
+                playCollisionSound(); // Play collision sound
                 gameOver = true;
             }
         }
 
-        if (bird.y > boardHeight) {
+        if (witch.y > boardHeight) {
+            playCollisionSound(); // Play collision sound
             gameOver = true;
         }
     }
 
-    boolean collision(Bird a, Pipe b) {
+    boolean collision(Witch a, Pipe b) {
         return a.x < b.x + b.width &&   //a's top left corner doesn't reach b's top right corner
                a.x + a.width > b.x &&   //a's top right corner passes b's top left corner
                a.y < b.y + b.height &&  //a's top left corner doesn't reach b's bottom left corner
                a.y + a.height > b.y;    //a's bottom left corner passes b's top left corner
     }
+
+    // Collision sound 
+    void loadCollisionSound() {
+        try {
+            // Load the sound file
+            File soundFile = new File(getClass().getResource("./sounds/Collision.wav").getFile());
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            collisionSound = AudioSystem.getClip();
+            collisionSound.open(audioStream);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void playCollisionSound() {
+        if (collisionSound != null) {
+            if (collisionSound.isRunning()) {
+                collisionSound.stop();
+            }
+            collisionSound.setFramePosition(0); // Rewind to the beginning
+            collisionSound.start();
+        }
+    }    
+
 
     @Override
     public void actionPerformed(ActionEvent e) { //called every x milliseconds by gameLoop timer
@@ -263,7 +297,7 @@ public class WitchyWitch extends JPanel implements ActionListener, KeyListener {
 
             if (gameOver) {
                 //restart game by resetting conditions
-                bird.y = birdY;
+                witch.y = witchY;
                 velocityY = 0;
                 pipes.clear();
                 gameOver = false;

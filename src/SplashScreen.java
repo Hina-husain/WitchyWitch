@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class SplashScreen {
     private JFrame splashFrame;
-    private JButton startButton;
     private Image backgroundImg;
     private Clip clip; // Keep reference to the Clip object
 
@@ -20,7 +19,7 @@ public class SplashScreen {
         // Load background image
         backgroundImg = new ImageIcon(getClass().getResource("./images/background.jpg")).getImage();
         // Create the splash screen JFrame
-        splashFrame = new JFrame("Flappy Bird - Splash Screen");
+        splashFrame = new JFrame("Witchy Witch - Splash Screen");
         splashFrame.setSize(360, 640);
         splashFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         splashFrame.setLocationRelativeTo(null);
@@ -30,16 +29,18 @@ public class SplashScreen {
         backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
         
         // Title label
-        JLabel titleLabel = new JLabel("Flappy Bird", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
+        JLabel titleLabel = new JLabel("Witchy Witch", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Algerian", Font.BOLD, 45 ));
         titleLabel.setForeground(Color.BLACK);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the title horizontally
 
         // Start Button
-        startButton = new JButton("Start Game");
-        startButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        startButton.setPreferredSize(new Dimension(150, 50)); // Set button size
-        startButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button horizontally
+        JButton startButton = new JButton("Start Game");
+        startButton.setFont(new Font("Arial", Font.PLAIN, 24));
+        startButton.setPreferredSize(new Dimension(150, 50));
+        startButton.setBackground(Color.BLACK);
+        startButton.setForeground(Color.WHITE);
+        startButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the button horizontally   
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
