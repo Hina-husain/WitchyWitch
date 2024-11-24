@@ -8,16 +8,16 @@ Witchy Witch is a captivating and addictive game where you guide a charming litt
 
 
 ## Table of Contents
--Features
--Gameplay
--Usage
+- Features
+- Gameplay
+- Usage
 
-##Features
--Simple one-tap controls for intuitive gameplay
--Increasing difficulty levels to test your reflexes
--Collectible potions to boost your score
--Special abilities to unlock for enhanced gameplay
--Enchanting graphics and spooky sound effects
+## Features
+- Simple one-tap controls for intuitive gameplay
+- Increasing difficulty levels to test your reflexes
+- Collectible potions to boost your score
+- Special abilities to unlock for enhanced gameplay
+- Enchanting graphics and spooky sound effects
 
 ![image](https://github.com/user-attachments/assets/dd7c8ee7-1ce8-48bb-8a8d-b4d55282ee6a)
 
@@ -27,8 +27,8 @@ In Witchy Witch, timing and precision are crucial as you dodge haunted trees, ee
 
 
 ## Usage
--Start the game: Tap the start button to begin flying.
--Control the witch: Tap the space button to make the witch fly higher. Release to let her descend.
--Avoid obstacles: Navigate through the forest without hitting any obstacles.
+- Start the game: Tap the start button to begin flying.
+- Control the witch: Tap the space button to make the witch fly higher. Release to let her descend.
+- Avoid obstacles: Navigate through the forest without hitting any obstacles.
 
 Enjoy playing Witchy Witch and become the ultimate witch of the night! If you have any questions or need assistance, feel free to open an issue or contact the project maintainer. Happy flying!
