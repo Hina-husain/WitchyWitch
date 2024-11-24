@@ -1,4 +1,5 @@
-##Witchy Witch
+## Witchy Witch
+
 Witchy Witch is a captivating and addictive game where you guide a charming little witch on her broomstick through a series of spooky, enchanted obstacles. Navigate the witch through a forest filled with magical barriers, avoiding collisions and collecting mystical potions along the way.
 
 
@@ -6,7 +7,7 @@ Witchy Witch is a captivating and addictive game where you guide a charming litt
 
 
 
-##Table of Contents
+## Table of Contents
 -Features
 -Gameplay
 -Usage
@@ -21,11 +22,11 @@ Witchy Witch is a captivating and addictive game where you guide a charming litt
 ![image](https://github.com/user-attachments/assets/dd7c8ee7-1ce8-48bb-8a8d-b4d55282ee6a)
 
 
-##Gameplay
+## Gameplay
 In Witchy Witch, timing and precision are crucial as you dodge haunted trees, eerie ghosts, and other supernatural obstacles. Tap the screen to make the witch soar higher, and release to let her descend. The speed and difficulty increase as you progress, offering a thrilling and challenging experience.
 
 
-##Usage
+## Usage
 -Start the game: Tap the start button to begin flying.
 -Control the witch: Tap the space button to make the witch fly higher. Release to let her descend.
 -Avoid obstacles: Navigate through the forest without hitting any obstacles.
