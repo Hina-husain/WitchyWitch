@@ -1,6 +1,6 @@
-## Witchy Witch
+# Witchy Witch
 
-Witchy Witch is a captivating and addictive game where you guide a charming little witch on her broomstick through a series of spooky, enchanted obstacles. Navigate the witch through a forest filled with magical barriers, avoiding collisions and collecting mystical potions along the way.
+Witchy Witch is a captivating and addictive game where you guide a charming little witch on her broomstick through a series of spooky, enchanted obstacles. Navigate the witch through a cemetery filled with magical barriers, avoiding collisions and collecting mystical potions along the way.
 
 
 ![image](https://github.com/user-attachments/assets/fc9a5a9a-16ae-41ae-b380-f7ee6f6d2ffe)
@@ -15,8 +15,6 @@ Witchy Witch is a captivating and addictive game where you guide a charming litt
 ## Features
 - Simple one-tap controls for intuitive gameplay
 - Increasing difficulty levels to test your reflexes
-- Collectible potions to boost your score
-- Special abilities to unlock for enhanced gameplay
 - Enchanting graphics and spooky sound effects
 
 ![image](https://github.com/user-attachments/assets/dd7c8ee7-1ce8-48bb-8a8d-b4d55282ee6a)
